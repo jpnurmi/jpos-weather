@@ -1,0 +1,116 @@
+
+import { ListView, ProgressIndicator, StyleMetrics } from "std-widgets.slint";
+import { DayTime, Forecast } from "globals.slint";
+import { Symbols } from "symbols.slint";
+
+export component SlintLogo inherits Image {
+    opacity: 0.5;
+    source: StyleMetrics.dark-color-scheme ? @image-url("../images/slint/MadeWithSlint-logo-light.png")
+                                           : @image-url("../images/slint/MadeWithSlint-logo-dark.png");
+}
+
+export component SmhiLogo inherits Image {
+    opacity: 0.5;
+    source: StyleMetrics.dark-color-scheme ? @image-url("../images/smhi/smhi-logo-dark.png")
+                                           : @image-url("../images/smhi/smhi-logo-light.png");
+}
+
+export component ToolBar {
+    in property<string> title <=> label.text;
+    in property<bool> refreshing;
+    callback refresh <=> touch-area.clicked;
+
+    Rectangle {
+        background: StyleMetrics.window-background.mix(StyleMetrics.default-text-color, 0.95);
+        HorizontalLayout {
+            padding: 16px;
+            label := Text {
+                font-size: 32px;
+                vertical-alignment: center;
+                horizontal-stretch: 1;
+            }
+            touch-area := TouchArea {
+                HorizontalLayout {
+                    opacity: 0.5;
+                    spacing: 4px;
+                    Text {
+                        text: "Powered by";
+                        vertical-alignment: bottom;
+                    }
+                    SmhiLogo {}
+                }
+            }
+        }
+        if root.refreshing: ProgressIndicator {
+            y: parent.height - self.height;
+            width: 100%;
+            indeterminate: true;
+        }
+    }
+}
+
+export component WaitIndicator {
+    VerticalLayout {
+        spacing: 16px;
+        width: label.preferred-width;
+        alignment: LayoutAlignment.center;
+        label := Text {
+            text: "Please wait...";
+            font-size: 32px;
+            horizontal-alignment: center;
+        }
+        ProgressIndicator {
+            indeterminate: true;
+        }
+    }
+}
+
+export component WeatherView {
+    in property<[Forecast]> forecasts;
+
+    ListView {
+        for forecast in root.forecasts: VerticalLayout {
+            spacing: 8px;
+            padding-top: 16px;
+            HorizontalLayout {
+                spacing: 16px;
+                padding-left: 16px;
+                alignment: start;
+                Text {
+                    text: "\{forecast.date}";
+                    font-size: 24px;
+                    font-weight: 900;
+                }
+                Text {
+                    text: "(\{forecast.min-temperature} - \{forecast.max-temperature}°C)";
+                    vertical-alignment: center;
+                    font-size: 12px;
+                }
+            }
+            Flickable {
+                HorizontalLayout {
+                    spacing: 8px;
+                    alignment: start;
+                    for params in forecast.params: VerticalLayout {
+                        Image {
+                            source: DayTime.is-day(forecast.offset, params.hour) ? Symbols.day[params.symbol - 1]
+                                                                                 : Symbols.night[params.symbol - 1];
+                            // TODO: remove hard-coded size
+                            width: 108px;
+                            height: 75px;
+                        }
+                        Text {
+                            text: "\{params.temperature}°C";
+                            horizontal-alignment: center;
+                            font-size: 16px;
+                        }
+                        Text {
+                            text: "\{params.hour}";
+                            horizontal-alignment: center;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

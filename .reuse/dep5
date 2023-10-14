@@ -1,0 +1,20 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: jpos-weather
+Upstream-Contact: J-P Nurmi <jpnurmi@gmail.com>
+Source: https://github.com/jpnurmi/jpos-weather
+
+Files: *.json *.toml *.rs *.slint
+Copyright: J-P Nurmi <jpnurmi@gmail.com>
+License: GPL-3.0-only
+
+Files: .gitignore *.lock
+Copyright: J-P Nurmi <jpnurmi@gmail.com>
+License: CC0-1.0
+
+Files: images/smhi/*
+Copyright: SMHI <smhi@smhi.se>
+License: CC-BY-4.0
+
+Files: images/slint/*
+Copyright: SixtyFPS GmbH <info@slint.dev>
+License: CC-BY-ND-4.0

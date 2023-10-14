@@ -1,0 +1,33 @@
+import { ToolBar , SlintLogo, WaitIndicator, WeatherView} from "components.slint";
+import { DayTime, GeoIP, Smhi } from "globals.slint";
+
+export { DayTime, GeoIP, Smhi }
+
+export component MainWindow {
+    property<bool> empty: Smhi.forecasts.length == 0;
+    property<bool> refreshing: GeoIP.refreshing || DayTime.refreshing || Smhi.refreshing;
+
+    width: 1024px;
+    height: 600px;
+
+    SlintLogo {
+        x: parent.width - self.width - 8px;
+        y: parent.height - self.height - 8px;
+    }
+
+    if root.empty && root.refreshing: WaitIndicator {}
+
+    VerticalLayout {
+        ToolBar {
+            title: GeoIP.city != "" && GeoIP.country != "" ? "\{GeoIP.city}, \{GeoIP.country}" :
+                   GeoIP.city != "" ? GeoIP.city :
+                   GeoIP.country;
+            refreshing: !root.empty && root.refreshing;
+            refresh => { Smhi.refresh(GeoIP.latitude, GeoIP.longitude) }
+        }
+        WeatherView { 
+            vertical-stretch: 1;
+            forecasts: Smhi.forecasts;
+        }
+    }
+}
