@@ -1,5 +1,5 @@
 [package]
-name = "weather"
+name = "jpos-weather"
 version = "0.1.0"
 edition = "2021"
 
