@@ -48,5 +48,10 @@ fn main() {
         },
     );
 
+    window.on_close({
+        let handle = window.as_weak();
+        move || handle.unwrap().window().hide().unwrap()
+    });
+
     window.run().unwrap();
 }

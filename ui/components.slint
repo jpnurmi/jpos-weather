@@ -18,18 +18,21 @@ export component SmhiLogo inherits Image {
 export component ToolBar {
     in property<string> title <=> label.text;
     in property<bool> refreshing;
-    callback refresh <=> touch-area.clicked;
+    callback back <=> back-button.clicked;
+    callback refresh <=> refresh-button.clicked;
 
     Rectangle {
         background: StyleMetrics.window-background.mix(StyleMetrics.default-text-color, 0.95);
         HorizontalLayout {
-            padding: 16px;
-            label := Text {
-                font-size: 32px;
-                vertical-alignment: center;
-                horizontal-stretch: 1;
+            padding: 8px;
+            alignment: space-between;
+            back-button := TouchArea {
+                Text {
+                    text: "<";
+                    font-size: 48px;
+                }
             }
-            touch-area := TouchArea {
+            refresh-button := TouchArea {
                 HorizontalLayout {
                     opacity: 0.5;
                     spacing: 4px;
@@ -40,6 +43,11 @@ export component ToolBar {
                     SmhiLogo {}
                 }
             }
+        }
+        label := Text {
+            font-size: 32px;
+            horizontal-alignment: center;
+            width: parent.width - 2 * Math.max(back-button.width, refresh-button.width);
         }
         if root.refreshing: ProgressIndicator {
             y: parent.height - self.height;
