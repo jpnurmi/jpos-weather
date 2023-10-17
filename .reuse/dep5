@@ -18,3 +18,7 @@ License: CC-BY-4.0
 Files: images/slint/*
 Copyright: SixtyFPS GmbH <info@slint.dev>
 License: CC-BY-ND-4.0
+
+Files: fonts/*
+Copyright: Material Icons <https://github.com/google/material-design-icons>
+License: Apache-2.0

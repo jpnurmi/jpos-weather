@@ -1,0 +1,30 @@
+import { StyleMetrics } from "std-widgets.slint";
+import "../fonts/MaterialIcons-Regular.ttf";
+
+export struct IconData {
+  icon-name: string,
+  code-point: string,
+  font-family: string,
+}
+
+export global IconTheme {
+    in-out property<length> size: 24px;
+    in-out property<color> color: black;
+}
+
+export component Icon {
+    in property<IconData> icon;
+    in property<length> size: IconTheme.size;
+    in property<color> color: StyleMetrics.default-text-color;
+
+    Text {
+      text: root.icon.code-point;
+      font-family: root.icon.font-family;
+      font-size: root.size;
+      color: root.color;
+    }
+}
+
+export global MaterialIcons {
+    out property<IconData> arrow-back: {code-point: "\u{e5c4}", font-family: "Material Icons"};
+}

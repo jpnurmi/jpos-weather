@@ -1,5 +1,6 @@
 
 import { ListView, ProgressIndicator, StyleMetrics } from "std-widgets.slint";
+import { Icon, MaterialIcons } from "icons.slint";
 import { DayTime, Forecast } from "globals.slint";
 import { Symbols } from "symbols.slint";
 
@@ -27,9 +28,11 @@ export component ToolBar {
             padding: 8px;
             alignment: space-between;
             back-button := TouchArea {
-                Text {
-                    text: "<";
-                    font-size: 48px;
+                width: 48px;
+                height: 48px;
+                Icon {
+                    opacity: back-button.pressed ? 0.5 : back-button.has-hover ? 0.75 : 1.0;
+                    icon: MaterialIcons.arrow-back;
                 }
             }
             refresh-button := TouchArea {
