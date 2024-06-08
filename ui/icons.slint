@@ -1,4 +1,4 @@
-import { StyleMetrics } from "std-widgets.slint";
+import { Palette } from "std-widgets.slint";
 import "../fonts/MaterialIcons-Regular.ttf";
 
 export struct IconData {
@@ -15,7 +15,7 @@ export global IconTheme {
 export component Icon {
     in property<IconData> icon;
     in property<length> size: IconTheme.size;
-    in property<color> color: StyleMetrics.default-text-color;
+    in property<color> color: Palette.foreground;
 
     Text {
       text: root.icon.code-point;

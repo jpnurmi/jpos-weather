@@ -30,7 +30,7 @@ pub fn refresh(latitude: f32, longitude: f32, window: slint::Weak<ui::MainWindow
 fn collect_forecasts(series: &[TimeSeries]) -> Vec<ui::Forecast> {
     series
         .iter()
-        .group_by(|s| s.valid_time.with_timezone(&Local).date_naive())
+        .chunk_by(|s| s.valid_time.with_timezone(&Local).date_naive())
         .into_iter()
         .map(|(date, s)| {
             let params = s
