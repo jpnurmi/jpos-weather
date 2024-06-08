@@ -35,9 +35,9 @@ fn from_env() -> Result<Response, Box<dyn std::error::Error>> {
     let response = Response {
         latitude: std::env::var("GEOIP_LATITUDE")?.parse::<f32>()?,
         longitude: std::env::var("GEOIP_LONGITUDE")?.parse::<f32>()?,
-        city: std::env::var("GEOIP_CITY")?,
-        country: std::env::var("GEOIP_COUNTRY")?,
-        timezone: std::env::var("GEOIP_TIMEZONE")?,
+        city: std::env::var("GEOIP_CITY").unwrap_or_default(),
+        country: std::env::var("GEOIP_COUNTRY").unwrap_or_default(),
+        timezone: std::env::var("GEOIP_TIMEZONE").unwrap_or_default(),
     };
     Ok(response)
 }
