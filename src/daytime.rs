@@ -72,10 +72,8 @@ pub struct Results {
     pub sunrise: NaiveTime,
     #[serde(with = "time_format")]
     pub sunset: NaiveTime,
-    #[serde(with = "time_format")]
-    pub first_light: NaiveTime,
-    #[serde(with = "time_format")]
-    pub last_light: NaiveTime,
+    pub first_light: Option<String>,
+    pub last_light: Option<String>,
     #[serde(with = "time_format")]
     pub dawn: NaiveTime,
     #[serde(with = "time_format")]
