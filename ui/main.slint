@@ -3,7 +3,7 @@ import { DayTime, GeoIP, Smhi } from "globals.slint";
 
 export { DayTime, GeoIP, Smhi }
 
-export component MainWindow {
+export component MainWindow inherits Window {
     property<bool> empty: Smhi.forecasts.length == 0;
     property<bool> refreshing: GeoIP.refreshing || DayTime.refreshing || Smhi.refreshing;
     callback close <=> toolbar.back;
