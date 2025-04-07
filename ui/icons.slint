@@ -8,23 +8,23 @@ export struct IconData {
 }
 
 export global IconTheme {
-    in-out property<length> size: 24px;
-    in-out property<color> color: black;
+    in-out property <length> size: 24px;
+    in-out property <color> color: black;
 }
 
 export component Icon {
-    in property<IconData> icon;
-    in property<length> size: IconTheme.size;
-    in property<color> color: Palette.foreground;
+    in property <IconData> icon;
+    in property <length> size: IconTheme.size;
+    in property <color> color: Palette.foreground;
 
     Text {
-      text: root.icon.code-point;
-      font-family: root.icon.font-family;
-      font-size: root.size;
-      color: root.color;
+        text: root.icon.code-point;
+        font-family: root.icon.font-family;
+        font-size: root.size;
+        color: root.color;
     }
 }
 
 export global MaterialIcons {
-    out property<IconData> arrow-back: {code-point: "\u{e5c4}", font-family: "Material Icons"};
+    out property <IconData> arrow-back: { code-point: "\u{e5c4}", font-family: "Material Icons" };
 }

@@ -1,7 +1,7 @@
 export global DayTime {
-    in-out property<[int]> sunrises;
-    in-out property<[int]> sunsets;
-    in-out property<bool> refreshing;
+    in-out property <[int]> sunrises;
+    in-out property <[int]> sunsets;
+    in-out property <bool> refreshing;
     callback refresh(float, float, string);
     pure public function is-day(day: int, hour: int) -> bool {
         return hour > sunrises[day] && hour <= sunsets[day];
@@ -12,12 +12,12 @@ export global DayTime {
 }
 
 export global GeoIP {
-    in-out property<float> latitude;
-    in-out property<float> longitude;
-    in-out property<string> city;
-    in-out property<string> country;
-    in-out property<string> timezone;
-    in-out property<bool> refreshing;
+    in-out property <float> latitude;
+    in-out property <float> longitude;
+    in-out property <string> city;
+    in-out property <string> country;
+    in-out property <string> timezone;
+    in-out property <bool> refreshing;
     callback refresh();
 }
 
@@ -36,7 +36,7 @@ export struct Forecast {
 }
 
 export global Smhi {
-    in-out property<[Forecast]> forecasts;
-    in-out property<bool> refreshing;
+    in-out property <[Forecast]> forecasts;
+    in-out property <bool> refreshing;
     callback refresh(float, float);
 }

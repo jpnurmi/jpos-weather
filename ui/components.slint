@@ -5,19 +5,17 @@ import { Symbols } from "symbols.slint";
 
 export component SlintLogo inherits Image {
     opacity: 0.5;
-    source: Palette.color-scheme == ColorScheme.dark ? @image-url("../images/slint/MadeWithSlint-logo-light.png")
-                                                     : @image-url("../images/slint/MadeWithSlint-logo-dark.png");
+    source: Palette.color-scheme == ColorScheme.dark ? @image-url("../images/slint/MadeWithSlint-logo-light.png") : @image-url("../images/slint/MadeWithSlint-logo-dark.png");
 }
 
 export component SmhiLogo inherits Image {
     opacity: 0.5;
-    source: Palette.color-scheme == ColorScheme.dark ? @image-url("../images/smhi/smhi-logo-dark.png")
-                                                     : @image-url("../images/smhi/smhi-logo-light.png");
+    source: Palette.color-scheme == ColorScheme.dark ? @image-url("../images/smhi/smhi-logo-dark.png") : @image-url("../images/smhi/smhi-logo-light.png");
 }
 
 export component ToolBar {
-    in property<string> title <=> label.text;
-    in property<bool> refreshing;
+    in property <string> title <=> label.text;
+    in property <bool> refreshing;
     callback back <=> back-button.clicked;
     callback refresh <=> refresh-button.clicked;
 
@@ -34,6 +32,7 @@ export component ToolBar {
                     icon: MaterialIcons.arrow-back;
                 }
             }
+
             refresh-button := TouchArea {
                 HorizontalLayout {
                     opacity: 0.5;
@@ -42,15 +41,18 @@ export component ToolBar {
                         text: "Powered by";
                         vertical-alignment: bottom;
                     }
-                    SmhiLogo {}
+
+                    SmhiLogo { }
                 }
             }
         }
+
         label := Text {
             font-size: 32px;
             horizontal-alignment: center;
             width: parent.width - 2 * Math.max(back-button.width, refresh-button.width);
         }
+
         if root.refreshing: ProgressIndicator {
             y: parent.height - self.height;
             width: 100%;
@@ -69,6 +71,7 @@ export component WaitIndicator {
             font-size: 32px;
             horizontal-alignment: center;
         }
+
         ProgressIndicator {
             indeterminate: true;
         }
@@ -76,7 +79,7 @@ export component WaitIndicator {
 }
 
 export component WeatherView {
-    in property<[Forecast]> forecasts;
+    in property <[Forecast]> forecasts;
 
     ListView {
         for forecast in root.forecasts: VerticalLayout {
@@ -91,29 +94,32 @@ export component WeatherView {
                     font-size: 24px;
                     font-weight: 900;
                 }
+
                 Text {
                     text: "(\{forecast.min-temperature} - \{forecast.max-temperature}°C)";
                     vertical-alignment: center;
                     font-size: 12px;
                 }
             }
+
             Flickable {
                 HorizontalLayout {
                     spacing: 8px;
                     alignment: start;
                     for params in forecast.params: VerticalLayout {
                         Image {
-                            source: DayTime.is-day(forecast.offset, params.hour) ? Symbols.day[params.symbol - 1]
-                                                                                 : Symbols.night[params.symbol - 1];
+                            source: DayTime.is-day(forecast.offset, params.hour) ? Symbols.day[params.symbol - 1] : Symbols.night[params.symbol - 1];
                             // TODO: remove hard-coded size
                             width: 108px;
                             height: 75px;
                         }
+
                         Text {
                             text: "\{params.temperature}°C";
                             horizontal-alignment: center;
                             font-size: 16px;
                         }
+
                         Text {
                             text: "\{params.hour}";
                             horizontal-alignment: center;
