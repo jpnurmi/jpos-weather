@@ -43,18 +43,19 @@ fn from_env() -> Result<Response, Box<dyn std::error::Error>> {
 }
 
 fn fetch() -> Result<Response, Box<dyn std::error::Error>> {
-    let body = reqwest::blocking::get("https://geoip.ubuntu.com/lookup")?.text()?;
-    Ok(serde_xml_rs::from_str::<Response>(&body)?)
+    let body = reqwest::blocking::get("https://api.ip2location.io/?format=json")?.text()?;
+    Ok(serde_json::from_str::<Response>(&body)?)
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "PascalCase")]
+#[serde(rename_all = "camelCase")]
 pub struct Response {
     pub latitude: f32,
     pub longitude: f32,
+    #[serde(rename = "city_name")]
     pub city: String,
-    #[serde(rename = "CountryName")]
+    #[serde(rename = "country_name")]
     pub country: String,
-    #[serde(rename = "TimeZone")]
+    #[serde(rename = "time_zone")]
     pub timezone: String,
 }
